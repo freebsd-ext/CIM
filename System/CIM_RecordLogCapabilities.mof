@@ -1,0 +1,30 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Version ( "2.47.0" ), 
+    UMLPackagePath ( "CIM::System::Logs" ), 
+    Description ( 
+       "CIM_RecordLogcapabilities describes the capabilities supported "
+       "by the associated record log." )]
+class CIM_RecordLogCapabilities : CIM_EnabledLogicalElementCapabilities {
+
+      [Description ( 
+          "SupportedRecordTypes indicates which record types are supported.\n"
+          "2 (\"Record Data\") indicates that this log is capable "
+          "of storing log entry data in the RecordData property of "
+          "CIM_RecordForLog in the format that is identified by the "
+          "RecordFormat property of CIM_RecordForLog.\n"
+          "3 (\"Standard Messages\") indicates that this log is "
+          "capable of storing log entries using Standard Messages." ), 
+       ValueMap { "0", "2", "3", ".." }, 
+       Values { "Unknown", "Record Data", "Standard Messages", 
+          "DMTF Reserved" }]
+   uint16 SupportedRecordTypes[];
+
+      [Experimental, Description ( 
+          "This property advertises the methods that are supported "
+          "by the RecordLog" ), 
+       ValueMap { "0", "1", "2" }, 
+       Values { "Unknown", "Other", "ClearLog" }]
+   uint32 MethodsSupported[];
+
+
+};

@@ -1,0 +1,23 @@
+// Copyright (c) 2017 DMTF.  All rights reserved.
+   [Association, Experimental, Version ( "2.51.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageServices" ), 
+    Description ( 
+       "CIM_StorageElementExtentDependency is used to show dependency "
+       "between a storage extent and storage elements which use the "
+       "extent, such as StorageVolumes." )]
+class CIM_StorageElementExtentDependency : CIM_Dependency {
+
+      [Key, Override ( "Antecedent" ), 
+       Description ( 
+          "Antecedent represents the storage extent in this association."
+           )]
+   CIM_StorageExtent REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "Dependent represents the element that is dependent on "
+          "the storage extent." )]
+   CIM_LogicalElement REF Dependent;
+
+
+};

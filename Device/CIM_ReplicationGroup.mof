@@ -1,0 +1,89 @@
+// Copyright (c) 2017 DMTF.  All rights reserved.
+   [Version ( "2.49.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageServices" ), 
+    Description ( 
+       "This class represents a collection of storage objects, such as "
+       "a group of StorageVolumes." )]
+class CIM_ReplicationGroup : CIM_SystemSpecificCollection {
+
+      [Write, Description ( 
+          "If false, the group, not the elements associated with "
+          "the group, may be deleted at the completion of a copy "
+          "operation." )]
+   boolean Persistent = true;
+
+      [Write, Description ( 
+          "If true and empty groups are allowed, the group will be "
+          "deleted when the last element is removed from the group. "
+          "If empty groups are not allowed, the group will be "
+          "deleted automatically when the group becomes empty." )]
+   boolean DeleteOnEmptyElement = false;
+
+      [Write, Description ( 
+          "If true, the group will be deleted when the group is no "
+          "longer associated with another group. This can happen if "
+          "all synchronization associations to the individual "
+          "elements of the group are dissolved." )]
+   boolean DeleteOnUnassociated = false;
+
+      [Description ( 
+          "This property applies to a group of elements. If it is "
+          "true, it means the point-in-time was created at an exact "
+          "time with no I/O activities in such a way the data is "
+          "consistent among all the elements of the group. This "
+          "property is only valid when the group is a target of a "
+          "copy operation." )]
+   boolean ConsistentPointInTime = false;
+
+      [Write, Description ( 
+          "Indicates the group is reserved to be used only as the "
+          "source, or as the target, or as either the source or the "
+          "target of a copy operation. \n"
+          "If NULL, the group can be either the source or the "
+          "target." ), 
+       ValueMap { "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Source Only", "Target Only", "Source or Target", 
+          "DMTF Reserved", "Vendor Specific" }]
+   uint16 ReservedAs;
+
+      [Description ( 
+          "Indicates replication group can be used for which "
+          "SyncTypes. \n"
+          "If NULL, the replication group can be used for all "
+          "SyncTypes the implementation supports." ), 
+       ValueMap { "6", "7", "8", "9", "..", "0x8000.." }, 
+       Values { "Mirror", "Snapshot", "Clone", "TokenizedClone", 
+          "DMTF Reserved", "Vendor Specific" }, 
+       ModelCorrespondence { "CIM_Synchronized.SyncType" }]
+   uint16 SupportedSyncTypes[];
+
+      [Experimental, Description ( 
+          "MemberPolicy indicates what actions can be performed to "
+          "affect the group/member relationship. For example, "
+          "whether a new member can be added to the group, or "
+          "whether deleting the group also deletes the members. \n"
+          "\"Deleting group deletes members\": if the group is "
+          "deleted, the members that are deleteable will also be "
+          "deleted -- a member is deleteable if, for example, it is "
+          "not exposed to a host." ), 
+       ValueMap { "0", "2", "3", "4", "5", "6", "7", "8", "..", 
+          "0x8000.." }, 
+       Values { "Unknown", "Can add existing member to group", 
+          "Can create member to group", 
+          "Can remove member from group", 
+          "Removing all members deletes the group", 
+          "Cannot delete group if not empty", 
+          "Deleting group first deletes all members", 
+          "Deleting group retains first removes all members", 
+          "DMTF Reserved", "Vendor Reserved" }]
+   uint16 MemberPolicy[];
+
+      [Experimental, Description ( 
+          "If true, it indicates that the group was created by the "
+          "system. For example, system my require an element to "
+          "always be in a group, in which case, the system will "
+          "create the group for the element." )]
+   boolean SystemGenerated = false;
+
+
+};

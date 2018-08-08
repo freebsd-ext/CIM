@@ -1,0 +1,44 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Experimental, Version ( "2.42.0" ), 
+    UMLPackagePath ( "CIM::Device::StorageDevices" ), 
+    Description ( 
+       "CIM_SBInitiatorTargetLogicalUnitPath extends "
+       "CIM_SBInitiatorTargetLogicalUnitPathwith properties for FC "
+       "Single-Byte connectivity." )]
+class CIM_SBInitiatorTargetLogicalUnitPath : CIM_SCSIInitiatorTargetLogicalUnitPath {
+
+      [Description ( 
+          "Boolean indicating whether preferred path processing is required."
+           )]
+   boolean UsePreferredPath;
+
+      [Description ( 
+          "Boolean indicating whiether this is a preferred path." )]
+   boolean PreferredPath;
+
+      [Description ( 
+          "The state of the path group.\n"
+          "2 indicates that grouping is not supported.\n"
+          "3 indicates that the grouping has been reset.\n"
+          "4 indicates that the path is currently grouped.\n"
+          "5 indicates that the path is currently not grouped." ), 
+       Valuemap { "0", "2", "3", "4", "5", "..", "32768..65535" }, 
+       Values { "Unknown", "Path grouping not supported", "Reset", 
+          "Grouped", "Ungrouped", "DMTF Reserved", "Vendor Specific" }]
+   uint16 PathGroupState;
+
+      [Description ( 
+          "Single path and Multipath only valid if PathGroupState "
+          "is 4 (Grouped)." ), 
+       Valuemap { "0", "2", "3", "4", "..", "32768..65535" }, 
+       Values { "Unknown", "None", "Single path", "Multipath", 
+          "DMTF Reserved", "Vendor Specific" }]
+   uint16 PathGroupMode;
+
+      [Description ( 
+          "String containing the ID from the OS; only valid if "
+          "PathGroupState is 4 (Grouped)." )]
+   string PathGroupID;
+
+
+};

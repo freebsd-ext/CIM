@@ -1,0 +1,23 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.43.0" ), 
+    UMLPackagePath ( "CIM::Core::Power" ), 
+    Description ( 
+       "This collection class allows the grouping of a set of "
+       "CIM_LogicalDevices to define a unit for a management operation "
+       "that is provided to the client." )]
+class CIM_DeviceSet : CIM_SystemSpecificCollection {
+
+      [Description ( 
+          "Describes the management operation purpose of the grouping."
+           ), 
+       ValueMap { "0", "1", "2" }, 
+       Values { "Unknown", "Other", "Operational Power" }]
+   uint16 Purpose[];
+
+      [Description ( "Describes the unit of grouping." ), 
+       ValueMap { "0", "1", "2", "3" }, 
+       Values { "Unknown", "Other", "Component Group", "RAID Group" }]
+   uint16 GroupType;
+
+
+};

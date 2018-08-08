@@ -1,0 +1,44 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.44.0" ), 
+    UMLPackagePath ( "CIM::Network" ), 
+    Description ( 
+       "This class represents a template for network configuration." )]
+class CIM_NetworkSettingData : CIM_SettingData {
+
+      [Description ( "An array describing the type of network" ), 
+       ValueMap { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
+          "11", "12" }, 
+       Values { "Other", "Local Area Network (LAN)", 
+          "Wireless Local Area Network (WLAN)", 
+          "Wide Area Network (WAN)", 
+          "Metropolitan Area Network (MAN)", 
+          "Storage Area Network (SAN)", 
+          "Virtual Local Area Network (VLAN)", "Ethernet Network", 
+          "IP Network", "IPv4 Network", "IPv6 Network", 
+          "Overlay Network" }, 
+       ModelCorrespondence { "CIM_Network.Type" }]
+   uint16 Type[];
+
+      [Description ( 
+          "A string that describes the type of the network when the "
+          "Type[] property contains value 1 (\"Other\"). This "
+          "property must be set to null when Type[] property does "
+          "not contain value 1 (\"Other\")." ), 
+       ModelCorrespondence { "CIM_NetworkSettingData.Type" }]
+   string OtherTypeDescription;
+
+      [Description ( 
+          "This property represents the maximum number of ports "
+          "that can be supported for a network created using this "
+          "network configuration." )]
+   uint64 MaximumNumberOfPorts;
+
+      [Description ( 
+          "This represents the class of service of the network." ), 
+       ValueMap { "2", "3", "4", "5", "6" }, 
+       Values { "Best Effort", "Priority", "Low Latency", 
+          "Lossless", "High Bandwidth" }]
+   uint16 ClassOfService[];
+
+
+};

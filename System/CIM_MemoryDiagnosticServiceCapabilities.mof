@@ -1,0 +1,39 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.44.0" ), 
+    UMLPackagePath ( "CIM::System::Diagnostics" ), 
+    Description ( 
+       "This class defines the permissible settings that can be used "
+       "for memory diagnostic tests." )]
+class CIM_MemoryDiagnosticServiceCapabilities : CIM_DiagnosticServiceCapabilities {
+
+      [Description ( 
+          "This array property is used by a provider to specify "
+          "data patterns supported by a test. Careful selection of "
+          "a data pattern can have a big impact on the "
+          "effectiveness of the test." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticSettingData.DataPattern" }]
+   uint8 DataPattern[];
+
+      [Description ( 
+          "This property is used by a provider to specify whether "
+          "random number seeds are supported by the test. The seed "
+          "is used to generate a random number or a sequence of "
+          "random numbers. Being able to change the seed value will "
+          "change the random nature of the test and consequently "
+          "impact the effectiveness of the test. In order to "
+          "replicate the same random number sequence for successive "
+          "tests, one should use the same seed value." ), 
+       ModelCorrespondence { "CIM_MemoryDiagnosticSettingData.Seed" }]
+   boolean Seed;
+
+      [Description ( 
+          "This array property is used by a provider to specify the "
+          "minimum and maximum wait times supported by a test. This "
+          "is important for tests that are duration dependent." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticSettingData.WaitTime" }]
+   datetime WaitTime[];
+
+
+};

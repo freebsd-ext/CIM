@@ -1,0 +1,43 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.42.0" ), 
+    UMLPackagePath ( "CIM::Device::Ports" ), 
+    Description ( 
+       "The SASPhyStatistics class describes the statistics for the "
+       "physical connection between SAS devices." )]
+class CIM_SASPhyStatistics : CIM_StatisticalData {
+
+      [Description ( 
+          "Number of invalid dwords that have been received outside "
+          "of phy reset sequences (i.e., between when the SP state "
+          "machine sends a Phy Layer Ready (SAS) confirmation or "
+          "Phy Layer Ready (SATA) confirmation and when it sends a "
+          "Phy Layer Not Ready confirmation to the link layer)." ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | INVALID DWORD COUNT" }]
+   uint64 InvalidDwordCount;
+
+      [Description ( 
+          "Number of dwords containing running disparity errors "
+          "that have been received outside of phy reset sequences." ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | RUNNING DISPARITY ERROR COUNT" }]
+   uint64 RunningDisparityErrorCount;
+
+      [Description ( 
+          "Number of times the phy has restarted the link reset "
+          "sequence because it lost dword synchronization (i.e., "
+          "the SP state machine transitioned from "
+          "SP15:SAS_PHY_Ready or SP22:SATA_PHY_Ready to "
+          "SP0:OOB_COMINIT)." ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | LOSS oF DWORD SYNC COUNT" }]
+   uint64 LossOfDwordSyncCount;
+
+      [Description ( 
+          "Number of times a phy reset problem has occurred." ), 
+       Counter, MappingStrings { 
+          "SAS-2.ISO/IEC 14776-152 | PHY RESET PROBLEM COUNT" }]
+   uint64 ResetProblemCount;
+
+
+};

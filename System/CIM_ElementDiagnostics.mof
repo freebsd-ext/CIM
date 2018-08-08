@@ -1,0 +1,22 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Experimental, Version ( "2.44.0" ), 
+    UMLPackagePath ( "CIM::System::Diagnostics" ), 
+    Description ( 
+       "This associates a managed element to its summary diagnostic "
+       "instances." )]
+class CIM_ElementDiagnostics : CIM_Dependency {
+
+      [Key, Override ( "Antecedent" ), 
+       Description ( 
+          "A reference to the element (such as a storage pool or "
+          "disk drive) on which a diagnostic was run." )]
+   CIM_ManagedElement REF Antecedent;
+
+      [Key, Override ( "Dependent" ), 
+       Description ( 
+          "A reference to an instance of summary diagnostics for the element."
+           )]
+   CIM_ManagedElement REF Dependent;
+
+
+};

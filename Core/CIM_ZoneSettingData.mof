@@ -1,0 +1,29 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Association, Experimental, Version ( "2.46.0" ), 
+    UMLPackagePath ( "CIM::Core" ), 
+    Description ( 
+       "ZoneSettingData represents the association between the "
+       "ZoneMembershipSettingData and the Zone along with a property "
+       "ZoneMembershipRole which when working with peer zoning "
+       "indicates whether the member is a principal or peer in the "
+       "zone." )]
+class CIM_ZoneSettingData : CIM_ElementSettingData {
+
+      [Key, Override ( "ManagedElement" ), 
+       Description ( "The Zone." )]
+   CIM_Zone REF ManagedElement;
+
+      [Key, Override ( "SettingData" ), 
+       Description ( "The ZoneMembershipSettingData." )]
+   CIM_ZoneMembershipSettingData REF SettingData;
+
+      [Description ( 
+          "ZoneMembershipRole specifies the role of the "
+          "ZoneMembershipSettingData in the Zone." ), 
+       ValueMap { "0", "1", "2", "3", "..", "32768..65535" }, 
+       Values { "Unknown", "Other", "Principal", "Peer", 
+          "DMTF Reserved", "Vendor Reserved" }]
+   uint16 ZoneMembershipRole;
+
+
+};

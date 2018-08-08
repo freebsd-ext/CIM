@@ -1,0 +1,94 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.44.0" ), 
+    UMLPackagePath ( "CIM::System::Diagnostics" ), 
+    Description ( 
+       "This class defines the additional settings to be used for "
+       "system memory diagnostic tests." )]
+class CIM_MemoryDiagnosticSettingData : CIM_DiagnosticSettingData {
+
+      [Description ( 
+          "An array that specifies either a base address, an "
+          "address range or a discrete set of addresses.\n"
+          "* Address[0] as the base address\n"
+          "* Address[0] and Address[1] as an address range\n"
+          "* Address[0], Address[1], Address[2], etc as a discrete "
+          "set of addresses\n"
+          "The values are used by a test to logically address memory.\n"
+          "The default value will depend upon the specific test. If "
+          "no value is specified by the client, the vendor-defined "
+          "default value will be used. The vendor-defined default "
+          "value is advertised by using the default instance of "
+          "CIM_MemoryDiagnosticSettingData. A null value indicates "
+          "that lowest accessible address shall be used as the base address.\n"
+          "\n"
+          "To test all available memory, a client can simply "
+          "specify both Address[] and NumberOfBytes as null." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticSettingData.NumberOfBytes" }]
+   string Address[];
+
+      [Description ( 
+          "The number of bytes specified by the client to be "
+          "written and read during a test. If a value is specified, "
+          "it will indicate the number of address locations to be "
+          "tested starting from the base address. If null, all "
+          "available memory will be tested from the base address.\n"
+          "To test all available memory, a client can simply "
+          "specify both Address and NumberOfBytes as null." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticSettingData.Address" }]
+   uint64 NumberOfBytes;
+
+      [Description ( 
+          "The target is identified by a device moniker which is "
+          "the unique name for the physical memory device under "
+          "test. It can be anyone of the following.\n"
+          "* The Object path of the physical memory device.\n"
+          "* The ElementName of the physical memory device.\n"
+          "* A unique user friendly name not in the model (such as, "
+          "asset name).\n"
+          "Whichever moniker is used it shall be used consistently "
+          "for all devices and applicable tests." )]
+   string TargetDevice;
+
+      [Description ( 
+          "An 8-bit value used to test memory data access.\n"
+          "A specific data pattern is sometimes required for the "
+          "test to be effective.\n"
+          "The default value will depend upon the specific test. If "
+          "no value is specified by the client, the vendor-defined "
+          "default value will be used. The vendor-defined default "
+          "value is advertised by using the default instance of "
+          "CIM_MemoryDiagnosticSettingData. This value may be null "
+          "if the property is not applicable to the test." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticServiceCapabilities.DataPattern" }]
+   uint8 DataPattern;
+
+      [Description ( 
+          "The seed for generating a random number used within a "
+          "test. Allows control of a test with a pseudo-random "
+          "behavior. If no value is specified by the client, the "
+          "vendor-defined default value will be used. The "
+          "vendor-defined default value is advertised by using the "
+          "default instance of CIM_MemoryDiagnosticSettingData. "
+          "This value may be null if the property is not applicable "
+          "to the test." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticServiceCapabilities.Seed" }]
+   uint32 Seed;
+
+      [Description ( 
+          "Specifies a wait time to apply in a test. This can be a "
+          "date and time or an inteval. If no value is specified by "
+          "the client, the vendor-defined default value will be "
+          "used. The vendor-defined default value is advertised by "
+          "using the default instance of "
+          "CIM_MemoryDiagnosticSettingData. This value may be null "
+          "if the property is not applicable to the test." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticServiceCapabilities.WaitTime" }]
+   datetime WaitTime;
+
+
+};

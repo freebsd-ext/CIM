@@ -1,0 +1,73 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.44.0" ), 
+    UMLPackagePath ( "CIM::System::Diagnostics" ), 
+    Description ( 
+       "This class specializes CIM_DiagnosticTest to define the tests "
+       "specific to system memory." )]
+class CIM_MemoryDiagnosticTest : CIM_DiagnosticTest {
+
+      [Description ( 
+          "The descriptions for each memory test type are below:\n"
+          "* If \"Other\" (value=1) is set, this test is a vendor "
+          "extension that performs a custom diagnostic. See "
+          "ElementName for the name assigned to the test by the vendor.\n"
+          "* If \"Electrical Wiring\" (value=2) is set, this test "
+          "checks for the existence of a physical memory device, a "
+          "memory chip, in the system.\n"
+          "* If \"Data Bus Walking 1s\" (value=3) is set, this test "
+          "verifies the data path from host to target is working properly.\n"
+          "* If \"Address Bus Walking 1s\" (value=4) is set, this "
+          "test verifies the address path from host to target is "
+          "working properly.\n"
+          "* If \"Power-of-Two Addressing\" (value=5) is set, this "
+          "test verifies that the address path from host to target "
+          "is working properly. That there are no overlapping addresses.\n"
+          "* If \"Self Addressing\" (value=6) is set, this test "
+          "verifies that the address path from host to target is "
+          "working properly.\n"
+          "*If \"Increment and Decrement\" (value=7) is set, this "
+          "test verifies that both the address and data paths from "
+          "the host to target are working properly.\n"
+          "*If \"Moving Inversions 0s and 1s\" (value=8) is set, "
+          "this test verifies that both the address and data paths "
+          "from the host to target are working properly.\n"
+          "*If \"Moving Inversions Random\" (value=9) is set, this "
+          "test verifies that both the address and data paths from "
+          "the host to target are working properly.\n"
+          "*If \"Bit Fade\" (value=10) is set, this test verifies "
+          "that the device is working properly.\n"
+          "*If \"Reset\" (value=11) is set, this test causes a "
+          "physical memory device, as identified by a logical "
+          "memory address, to reinitialize itself.\n"
+          "*If \"Self-Test\" (value=12) is set, this test causes "
+          "the internal components of a physical memory device, as "
+          "identified by a logical memory address, to be tested.\n"
+          "*If \"Status\" (value=13) is set, this test checks the "
+          "status of a physical memory device, as identified by a "
+          "logical memory address.\n"
+          "*If \"Beacon\" (value=14) is set, this test causes at "
+          "least one of the LEDs of a physical component, as "
+          "identified by a logical memory address, to flash on and "
+          "off." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
+          "10", "11", "12", "13", "14", "..", "0x8000.." }, 
+       Values { "Unknown", "Other", "Electrical Wiring", 
+          "Data Bus Walking 1s", "Address Bus Walking 1s", 
+          "Power-of-Two Addressing", "Self Addressing", 
+          "Increment and Decrement", "Moving Inversions 0s and 1s", 
+          "Moving Inversions Random", "Bit Fade", "Reset", 
+          "Self-Test", "Status", "Beacon", "DMTF Reserved", 
+          "Vendor Reserved" }, 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticTest.OtherMemoryTestTypeDescription" }]
+   uint16 MemoryTestType;
+
+      [Description ( 
+          "Provides additional information for the MemoryTestType "
+          "when its value is set to 1 (\"Other\")." ), 
+       ModelCorrespondence { 
+          "CIM_MemoryDiagnosticTest.MemoryTestType" }]
+   string OtherMemoryTestTypeDescription;
+
+
+};

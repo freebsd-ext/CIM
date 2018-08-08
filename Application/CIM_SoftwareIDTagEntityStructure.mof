@@ -1,0 +1,39 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Indication, Experimental, Version ( "2.43.0" ), 
+    UMLPackagePath ( "CIM::Application:SoftwareIDTag" ), 
+    Description ( 
+       "Software identification tags are used for tagging software to "
+       "optimize its identification and management. Software "
+       "Identification tags are defined in ISO/IEC 19770-2. This "
+       "structure represents an entity entry in Software ID Tag. This "
+       "will handle both version 2009 and 2015." ), 
+    Structure]
+class CIM_SoftwareIDTagEntityStructure {
+
+      [Required, Description ( 
+          "The name of the organization claiming a particular role "
+          "in the SWID tag." )]
+   string Name;
+
+      [Required, Description ( 
+          "The regid of the organization. If the regid is unknown, "
+          "the value \"invalid.unavailable\" is proivded." )]
+   string RegID = "invalid.unavailable";
+
+      [Required, Description ( 
+          "The relationship between the organization and this tag. "
+          "The predefined roles are: aggregator, distributor, "
+          "licensor, softwareCreator, tagCreator. Other roles will "
+          "be defined as the market uses SWID tags. An Entity may "
+          "be actign in multiple roles (e.g. softwareCreator, "
+          "licensor and tagCreator.)" )]
+   string Role[];
+
+      [Description ( 
+          "If the SWID tag is signed this value provides a "
+          "hexadecimal string that contains a hash (or thumbprint) "
+          "of the entities certificate." )]
+   string Thumbprint;
+
+
+};

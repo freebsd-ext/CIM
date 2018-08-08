@@ -1,0 +1,82 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.42.0" ), 
+    UMLPackagePath ( "CIM::Device::Storage Media Library" ), 
+    Description ( 
+       "CIM_MediaLocationView instance is a view that is derived from "
+       "CIM_StorageMediaLocation and CIM_PhysicalMedia. \n"
+       "CIM_ElementView may associate CIM_MediaLocationView to its "
+       "underlying elements (regardless of whether or not they are "
+       "instantiated)." )]
+class CIM_MediaLocationView : CIM_View {
+
+      [Key, Description ( 
+          "The SystemCreationClassName for underlying system instance."
+           ), 
+       ModelCorrespondence { "CIM_ComputerSystem.CreationClassName" }]
+   string SystemCreationClassName;
+
+      [Key, Description ( 
+          "The SystemName for the underlying system instance." ), 
+       ModelCorrespondence { "CIM_ComputerSystem.Name" }]
+   string SystemName;
+
+      [Key, Description ( 
+          "An opaque identifier of the underlying PhysicalTape." ), 
+       ModelCorrespondence { "CIM_PhysicalMedia.Tag" }]
+   string PMTag;
+
+      [Key, Description ( 
+          "An opaque identifier of the underlying StorageMediaLocation."
+           ), 
+       ModelCorrespondence { "CIM_StorageMediaLocation.Tag" }]
+   string SMLTag;
+
+      [Description ( 
+          "LocationType property from StorageMediaLocation class." ), 
+       ModelCorrespondence { "CIM_StorageMediaLocation.LocationType" }]
+   uint16 SMLLocationType;
+
+      [Description ( 
+          "LocationCoordinates property from StorageMediaLocation class."
+           ), 
+       ModelCorrespondence { 
+          "CIM_StorageMediaLocation.LocationCoordinates" }]
+   string SMLLocationCoordinates;
+
+      [Description ( 
+          "MediaCapacity property from StorageMediaLocation class." ), 
+       ModelCorrespondence { "CIM_StorageMediaLocation.MediaCapacity" }]
+   uint32 SMLMediaCapacity;
+
+      [Description ( "Capacity property from PhysicalMedia class." ), 
+       Units ( "Bytes" ), 
+       ModelCorrespondence { "CIM_PhysicalMedia.Capacity" }, 
+       PUnit ( "byte" )]
+   uint64 PMCapacity;
+
+      [Description ( "MediaType from PhysclaMedia class." ), 
+       ModelCorrespondence { "CIM_PhysicalMedia.MediaType" }]
+   uint16 PMMediaType;
+
+      [Description ( 
+          "MediaDescription property from PhysicalMedia class." ), 
+       ModelCorrespondence { "CIM_PhysicalMedia.MediaDescription" }]
+   string PMMediaDescription;
+
+      [Description ( 
+          "CleanerMedia property from PhysicalMedia class." ), 
+       ModelCorrespondence { "CIM_PhysicalMedia.CleanerMedia" }]
+   boolean PMCleanerMedia;
+
+      [Description ( "DualSided property from PhysicalMedia class." ), 
+       ModelCorrespondence { "CIM_PhysicalMedia.DualSided" }]
+   boolean PMDualSided;
+
+      [Description ( 
+          "PhysicalLabels property from PhysicalMedia class." ), 
+       ArrayType ( "Indexed" ), 
+       ModelCorrespondence { "CIM_PhysicalMedia.PhysicalLabels" }]
+   string PMPhysicalLabels[];
+
+
+};

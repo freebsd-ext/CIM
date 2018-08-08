@@ -1,0 +1,194 @@
+// Copyright (c) 2017 DMTF.  All rights reserved.
+   [Version ( "2.51.0" ), 
+    ClassConstraint { 
+       "inv:self.IsSpeedInMhz=true implies self.Speed = 0 and self.MaxMemorySpeed > 0", 
+       "inv:self.IsSpeedInMhz=false implies self.MaxMemorySpeed=null" }, 
+    UMLPackagePath ( "CIM::Physical::Component" ), 
+    Description ( 
+       "PhysicalMemory is a subclass of CIM_Chip, representing low "
+       "level memory devices - SIMMS, DIMMs, raw memory chips, etc." )]
+class CIM_PhysicalMemory : CIM_Chip {
+
+      [Override ( "FormFactor" ), 
+       MappingStrings { "MIF.DMTF|Memory Device|005.6" }]
+   uint16 FormFactor;
+
+      [Description ( 
+          "The type of PhysicalMemory. Synchronous DRAM is also "
+          "known as SDRAM Cache DRAM is also known as CDRAM CDRAM "
+          "is also known as Cache DRAM SDRAM is also known as "
+          "Synchronous DRAM BRAM is also known as Block RAM" ), 
+       MappingStrings { "MIF.DMTF|Memory Device|005.9" }]
+   uint16 MemoryType;
+
+      [Description ( 
+          "Total width, in bits, of the PhysicalMemory, including "
+          "check or error correction bits. If there are no error "
+          "correction bits, the value in this property should match "
+          "that specified for DataWidth." ), 
+       Units ( "Bits" ), 
+       MappingStrings { "MIF.DMTF|Memory Device|005.7" }]
+   uint16 TotalWidth;
+
+      [Description ( 
+          "Data width of the PhysicalMemory, in bits. A data width "
+          "of 0 and a TotalWidth of 8 would indicate that the "
+          "Memory is solely used to provide error correction bits." ), 
+       Units ( "Bits" ), 
+       MappingStrings { "MIF.DMTF|Memory Device|005.8" }]
+   uint16 DataWidth;
+
+      [Description ( 
+          "The speed of the PhysicalMemory, in nanoseconds." ), 
+       Units ( "NanoSeconds" ), 
+       MappingStrings { "MIF.DMTF|Memory Device|005.24" }, 
+       ModelCorrespondence { "CIM_PhysicalMemory.MaxMemorySpeed", 
+          "CIM_PhysicalMemory.IsSpeedInMHz" }]
+   uint32 Speed;
+
+      [Description ( 
+          "The total capacity of this PhysicalMemory, in bytes." ), 
+       Units ( "Bytes" ), 
+       MappingStrings { "MIF.DMTF|Memory Device|005.5" }]
+   uint64 Capacity;
+
+      [Description ( 
+          "A string identifying the physically labeled bank where "
+          "the Memory is located - for example, \'Bank 0\' or \'Bank "
+          "A\'." ), 
+       MaxLen ( 64 ), 
+       MappingStrings { "MIF.DMTF|Memory Device|005.4" }]
+   string BankLabel;
+
+      [Description ( 
+          "Specifies the position of the PhysicalMemory in a \'row\'. "
+          "For example, if it takes two 8-bit memory devices to "
+          "form a 16- bit row, then a value of \'2\'means that this "
+          "Memory is the second device. 0 is an invalid value for "
+          "this property." ), 
+       MappingStrings { 
+          "MIF.DMTF|Memory Device Mapped Addresses|001.6" }]
+   uint32 PositionInRow;
+
+      [Description ( 
+          "The position of this PhysicalMemory in an interleave. 0 "
+          "indicates non-interleaved. 1 indicates the first "
+          "position, 2 the second position and so on. For example, "
+          "in a 2:1 interleave, a value of \'1\' would indicate "
+          "that the Memory is in the \'even\' position." ), 
+       MappingStrings { 
+          "MIF.DMTF|Memory Device Mapped Addresses|001.7" }]
+   uint32 InterleavePosition;
+
+      [Description ( 
+          "The IsSpeedInMHz property is used to indicate if the "
+          "Speed property or the MaxMemorySpeed contains the value "
+          "of the memory speed. A value of TRUE shall indicate that "
+          "the speed is represented by the MaxMemorySpeed property. "
+          "A value of FALSE shall indicate that the speed is "
+          "represented by the Speed property." ), 
+       ModelCorrespondence { "CIM_PhysicalMemory.Speed", 
+          "CIM_PhysicalMemory.MaxMemorySpeed" }]
+   boolean IsSpeedInMhz = false;
+
+      [Description ( "The maximum speed (in MHz) of PhysicalMemory." ), 
+       Units ( "MegaHertz" ), 
+       ModelCorrespondence { "CIM_PhysicalMemory.Speed", 
+          "CIM_PhysicalMemory.IsSpeedInMHz" }]
+   uint32 MaxMemorySpeed;
+
+      [Description ( 
+          "The configured clock speed (in MHz) of PhysicalMemory." ), 
+       Units ( "MegaHertz" )]
+   uint32 ConfiguredMemoryClockSpeed;
+
+      [Description ( 
+          "Is this memory device capabale of supporting \"Block "
+          "Accessible Persistent Memory\" memory operating mode?" )]
+   boolean Capability_BlockAccessiblePersistentMemory = false;
+
+      [Description ( 
+          "Is this memory device capabale of supporting \"Byte "
+          "Accessible Persistent Memory\" memory operating mode?" )]
+   boolean Capability_ByteAccessiblePersistentMemory = false;
+
+      [Description ( 
+          "Is this memory device capabale of supporting \"Volatile "
+          "Memory\" memory operating mode?" )]
+   boolean Capability_VolatileMemory = false;
+
+      [Description ( "Firmware version for this memory device." )]
+   string FirmwareVersion;
+
+      [Description ( 
+          "The Memory Subsystem Controller Manufacturer ID "
+          "indicates the vendor of the memory subsystem controller. "
+          "This field shall be set to the value of the SPD Memory "
+          "Subsystem Controller Manufacturer ID Code. Refer to "
+          "JEDEC Standard JEP106AU for the list of manufacturer "
+          "IDs. A value of 0000h indicates the Memory Subsystem "
+          "Controller Manufacturer ID is unknown.\n"
+          "Note that the location (byte addresses) of the SPD "
+          "Memory Subsystem Controller Manufacturer ID Code may "
+          "vary and is defined by the memory type/technology SPD "
+          "Standard. For example, for NVDIMM-N DDR4, this field "
+          "will have the first byte corresponds to the value in "
+          "byte 194 and the second byte corresponds to the value in "
+          "byte 195." )]
+   uint16 MemorySubsystemControllerManufacturerID;
+
+      [Description ( 
+          "The Memory Subsystem Controller Product ID is the "
+          "identifier of the memory subsystem controller, which is "
+          "assigned by the vendor of the memory subsystem "
+          "controller. This field shall be set to the value of the "
+          "SPD Memory Subsystem Controller Product Identifier. A "
+          "value of 0000h indicates the Memory Subsystem Controller "
+          "Product ID is unknown.\n"
+          "Note that the location (byte addresses) of the SPD "
+          "Memory Subsystem Controller Product Identifier may vary "
+          "and is defined by the memory type/technology SPD "
+          "Standard. For example, for NVDIMM-N DDR4, this field "
+          "will have the first byte corresponds to the value in "
+          "byte 196 and the second byte corresponds to the value in "
+          "byte 197." )]
+   uint16 MemorySubsystemControllerProductID;
+
+      [Description ( 
+          "The memory technology type for this memory device. For "
+          "example, NVDIMM-N on DDR4." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "7" }, 
+       Values { "Reserved", "Other", "Unknown", "DRAM", "NVDIMM-N", 
+          "NVDIMM-F", "NVDIMM-P", "Intel persistent memory" }]
+   uint16 MemoryTechnology;
+
+      [Description ( 
+          "The Module Manufacturer ID indicates the manufacturer of "
+          "the memory device. This field shall be set to the value "
+          "of the SPD Module Manufacturer ID Code. Refer to JEDEC "
+          "Standard JEP106AU for the list of manufacturer IDs. A "
+          "value of 0000h indicates the Module Manufacture ID is unknown.\n"
+          "Note that the location (byte addresses) of the SPD "
+          "Module Manufacturer ID Code may vary and is defined by "
+          "the memory type/technology SPD Standard. For example, "
+          "for NVDIMM-N DDR4, this field will have the first byte "
+          "corresponds to the value in byte 320 and the second byte "
+          "corresponds to the value in byte 321." )]
+   uint16 ModuleManufacturerID;
+
+      [Description ( 
+          "The Module Product ID is the identifier of the memory "
+          "device, which is assigned by the manufacturer of the "
+          "memory device. This field shall be set to the value of "
+          "the SPD Module Product Identifier. A value of 0000h "
+          "indicates the Module Product ID is unknown.\n"
+          "Note that the location (byte addresses) of the SPD "
+          "Module Product Identifier may vary and is defined by the "
+          "memory type/technology SPD Standard. For example, for "
+          "NVDIMM-N DDR4, this field will have the first byte "
+          "corresponds to the value in byte 192 and the second byte "
+          "corresponds to the value in byte 193." )]
+   uint16 ModuleProductID;
+
+
+};

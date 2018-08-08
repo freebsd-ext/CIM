@@ -1,0 +1,162 @@
+// Copyright (c) 2017 DMTF.  All rights reserved.
+   [Version ( "2.51.0" ), 
+    UMLPackagePath ( "CIM::System::FilesystemServices" ), 
+    Description ( 
+       "FileSystemConfigurationCapabilities specifies the capability "
+       "of a FileSystemConfigurationService to support the specified "
+       "methods." )]
+class CIM_FileSystemConfigurationCapabilities : CIM_Capabilities {
+
+      [Description ( 
+          "An array of enumerated values that indicates the set of "
+          "actual file system implementation types that this "
+          "FileSystemConfigurationService can support in its "
+          "Capabilities. For each file system type listed here, "
+          "there MUST be at least one FileSystemCapabilities "
+          "element." ), 
+       ValueMap { "0", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
+          "11", "12", "13", "..", "0x8000.." }, 
+       Values { "Unknown", "UFS", "HFS", "FAT", "FAT16", "FAT32", 
+          "NTFS4", "NTFS5", "XFS", "AFS", "EXT2", "EXT3", 
+          "REISERFS", "DMTF Reserved", "Vendor Defined" }]
+   uint16 SupportedActualFileSystemTypes[];
+
+      [Description ( 
+          "An array of methods of this Service that are supported "
+          "as synchronous methods." ), 
+       ValueMap { "0", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "CreateFileSystem", "DeleteFileSystem", 
+          "ModifyFileSystem", "CreateGoal", 
+          "GetRequiredStorageSize", "DMTF Reserved", "Vendor Defined" }]
+   uint16 SupportedSynchronousMethods[];
+
+      [Description ( 
+          "An array of methods of this Service that are supported "
+          "as asynchronous methods." ), 
+       ValueMap { "0", "2", "3", "4", "5", "6", "..", "0x8000.." }, 
+       Values { "Unknown", "CreateFileSystem", "DeleteFileSystem", 
+          "ModifyFileSystem", "CreateGoal", 
+          "GetRequiredStorageSize", "DMTF Reserved", "Vendor Defined" }]
+   uint16 SupportedAsynchronousMethods[];
+
+      [Description ( 
+          "An enumerated value that indicates the state of "
+          "availability in which the Service can create the file "
+          "system. The choices include \'Mounted\' and \'Unmounted\'. "
+          "If \'Mounted\', the mount-point will be at a "
+          "vendor-specific default LogicalFile, and a "
+          "MountedElement association will be surfaced." ), 
+       ValueMap { "0", "2", "3", "..", "0x8000.." }, 
+       Values { "Unknown", "Mounted", "Unmounted", "DMTF Reserved", 
+          "Vendor Defined" }]
+   uint16 InitialAvailability;
+
+      [Experimental, Description ( 
+          "BlockStorageCreationSupport is an enumeration that "
+          "specifies whether the CreateFileSystem (and "
+          "ModifyFileSystem) extrinsic methods may use already "
+          "existing LogicalDisk(s), or if a new one must be created "
+          "if needed. \n"
+          "\"StoragePools Required\" indicates that a new "
+          "LogicalDisk must be created from the Pools and "
+          "ExtentSettings parameters and, therefore, the InExtents "
+          "parameter must be NULL. \n"
+          "\"LogicalDisks Required\" indicates that existing "
+          "LogicalDisks must be specified via the InExtents "
+          "parameter (it cannot be NULL), and the Pools and "
+          "ExtentSettings parameters must be NULL.\n"
+          "\"StoragePools or LogicalDisks, but not Mixed\" "
+          "indicates that either the InExtents parameter must be "
+          "used to specify existing LogicalDisks, or the Pools and "
+          "ExtentSettings parameters must specify how to create "
+          "LogicalDisks, but both cannot be non-NULL." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "StoragePools Required", 
+          "LogicalDisks Required", 
+          "StoragePools or LogicalDisks, but not Mixed", 
+          "DMTF Reserved", "Vendor Defined" }, 
+       Read]
+   uint16 BlockStorageCreationSupport;
+
+      [Experimental, Description ( 
+          "This enumerated integer specifies if the created "
+          "filesystem must support security principal information "
+          "can how the client can specify the file server "
+          "ComputerSystem that provides access to directory "
+          "services for the filesystem.\n"
+          "The enumerated values are:\n"
+          "\"Not Used\" indicates that the filesystem does not "
+          "support security principal information associated with "
+          "filesystem objects. The LocalFileSystem will not be "
+          "associated to a DirectoryServer.\n"
+          "\"Supported\" indicates that the filesystem supports "
+          "security principal information associated with "
+          "filesystem objects. The LocalFileSystem will be "
+          "associated to a directory server ComputerSystem. The "
+          "DirectoryServer parameter of CreateFileSystem is "
+          "required. If it is not specified, it will be defaulted "
+          "to the FileServer parameter in the same call. If the "
+          "FileServer parameter is also not specified, the "
+          "DirectoryServer parameter will be defaulted to the host "
+          "of the FileSystemConfigurationService.\n"
+          "\"Supported, Defaulted to FileServer\" indicates that "
+          "the filesystem supports security principal information "
+          "associated with filesystem objects. The LocalFileSystem "
+          "will be associated to a directory server ComputerSystem. "
+          "The DirectoryServer parameter of CreateFileSystem is NOT "
+          "supported, but is automatically defaulted to the "
+          "FileServer parameter of the same call. If the FileServer "
+          "parameter is not specified, the DirectoryServer "
+          "parameter will be defaulted to the host of the FileSystemConfigurationService.\n"
+          "\"Supported, Defaulted to FileSystem host\" indicates "
+          "that the filesystem supports security principal "
+          "information associated with filesystem objects. The "
+          "LocalFileSystem will be associated to a directory server "
+          "ComputerSystem. The DirectoryServer parameter of "
+          "CreateFileSystem is NOT supported, but is automatically "
+          "defaulted to the host of the FileSystem created by "
+          "CreateFileSystem()." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5" }, 
+       Values { "Unknown", "Other", "Not Used", "Supported", 
+          "Supported, Defaulted to FileServer", 
+          "Supported, Defaulted to FileSystem host" }]
+   uint16 DirectoryServerParameterSupported;
+
+      [Experimental, Description ( 
+          "LocalAccessibilitySupport is an enumeration that "
+          "specifies if the FileSystem implementation requires a "
+          "local access specification, makes it optional (by "
+          "providing a vendor default local access point), or does "
+          "not require one(i.e, \"local access\" does not have a "
+          "meaning for the vendor). \"Local Access Required, "
+          "Defaulted\" indicates that local access is necessary and "
+          "will be established to the requested File Server "
+          "ComputerSystems at a default LocalAccessPoint and a "
+          "LocalAccessAvailable association shall exist between the "
+          "File Server ComputerSystem and the "
+          "LocalFileSystem.\"Local Access Required, Not Defaulted\" "
+          "indicates that local access is necessary and will be "
+          "established as specified by the client when creating or "
+          "modifying a FileSystem. \"Local Access Not Required\" "
+          "indicates that local access is not required and will not "
+          "be supported." ), 
+       ValueMap { "0", "2", "3", "4", "..", "0x8000.." }, 
+       Values { "Unknown", "Local Access Required, Defaulted", 
+          "Local Access Required, Not Defaulted", 
+          "Local Access Not Required", "DMTF Reserved", 
+          "Vendor Defined" }, 
+       Read]
+   uint16 LocalAccessibilitySupport;
+
+      [Experimental, Description ( 
+          "An array of features supported by this service for "
+          "operations on Filesystems.\n"
+          "\"GetFileProperties\" means that the service supports "
+          "the GetFileProperties method on the filesystems it "
+          "manages. \n"
+          "\"Quiesce/Unquiesce\" means that the service supports "
+          "the Quiesce and Unquiesce filesystem methods." )]
+   string SupportedFeatures[];
+
+
+};

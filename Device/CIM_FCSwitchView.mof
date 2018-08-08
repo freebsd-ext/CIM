@@ -1,0 +1,209 @@
+// Copyright (c) 2013 DMTF.  All rights reserved.
+   [Experimental, Version ( "2.43.0" ), 
+    UMLPackagePath ( "CIM::Device::Views" ), 
+    Description ( 
+       "The CIM_FCSwitchView provides the properties to be able to "
+       "discover all the switch properties for a Fibre Channel Switch "
+       "and Ports without having to do associators from the "
+       "ComputerSystem representing the Switch to FCPort, "
+       "FCSwitchCapabilities, FCPortCapabilities, LogicalModeule, "
+       "Product, PhysicalPackage, SoftwareIdentity, AccessPoint, and "
+       "Location." )]
+class CIM_FCSwitchView : CIM_View {
+
+      [Key, Override ( "InstanceID" ), 
+       Description ( 
+          "Within the scope of the instantiating Namespace, "
+          "InstanceID opaquely and uniquely identifies an instance "
+          "of this class. To ensure uniqueness within the "
+          "NameSpace, the value of InstanceID should be constructed "
+          "using the following \'preferred\' algorithm: : Where and "
+          "are separated by a colon \':\', and where must include a "
+          "unique name. It can be a copyrighted, trademarked, or "
+          "otherwise unique name that is owned by the business "
+          "entity that is creating or defining the InstanceID. Or, "
+          "it could be a registered ID that is assigned to the "
+          "business entity by a recognized global authority.(This "
+          "requirement is similar to the _ structure of Schema "
+          "class names.) In addition, to ensure uniqueness must not "
+          "contain a colon (\':\'). When using this algorithm, the "
+          "first colon to appear in InstanceID must appear between "
+          "and . is chosen by the business entity and should not be "
+          "re-used to identify different underlying (real-world) "
+          "elements. If the above \'preferred\' algorithm is not "
+          "used, the defining entity must ensure that the resulting "
+          "InstanceID is not re-used as any of InstanceIDs produced "
+          "by this or other providers for the NameSpace of this "
+          "instance. \n"
+          "For DMTF-defined instances, the \'preferred\' algorithm "
+          "must be used with the set to \'CIM\'." )]
+   string InstanceID;
+
+      [Description ( 
+          "A Name that is associated with a Fibre Channel switch." )]
+   string SwitchWWN;
+
+      [Description ( "The Domain ID of the Switch." )]
+   string DomainID;
+
+      [Override ( "ElementName" ), 
+       Description ( "The Symbolic Name of the Switch." )]
+   string ElementName;
+
+      [Description ( "The operational status of the Switch." )]
+   uint16 SwitchOperationalStatus[];
+
+      [Description ( 
+          "The EnabledState of the underlying FC Switch ComputerSystem"
+           )]
+   uint16 SwitchEnabledState = 5;
+
+      [Experimental, Description ( 
+          "Flag indicating whether NPIV is supported on the fibre "
+          "channel switch, as derived from the NPIVSupported "
+          "property of FCSwitchCapabilities for the switch." )]
+   boolean SwitchNPIVSupported;
+
+      [Description ( "The FC Port WWN." )]
+   string FCPortWWN;
+
+      [Description ( "The FC Port Symbolic Name." )]
+   string FCPortElementName;
+
+      [Description ( "The FCPort type." )]
+   uint16 FCPortType;
+
+      [Description ( "The operational status of the FCPort." )]
+   uint16 FCPortOperationalStatus[];
+
+      [Description ( "The EnabledState of the underlying port" )]
+   uint16 PortEnabledState = 5;
+
+      [Description ( 
+          "The labeled port number for administrative purposes "
+          "relative to the switch." )]
+   uint16 PortNumber;
+
+      [Description ( 
+          "The port number used for domain id and physical port zone members."
+           )]
+   uint16 DomainPortNumber;
+
+      [Description ( 
+          "Flag indicating whether NPIV is support on the FC Port." )]
+   boolean PortNPIVSupported;
+
+      [Description ( 
+          "Maximum number of NPIV logins supported on the fibre "
+          "channel port. This is derived from the MaxNPIVLogins in "
+          "the FCPortCapabilities associated to the FCPort." )]
+   uint16 MaxPortNPIVLogins;
+
+      [Description ( 
+          "Logical modules are often named by the physical or "
+          "logical slot that they occupy within the containing "
+          "device. ModuleNumber is the number assigned to the "
+          "module by its parent." )]
+   uint16 ModuleNumber;
+
+      [Experimental, Description ( 
+          "The port number labeled for an administrative purposes "
+          "relative to the logical module. This is derived from the "
+          "LogicalModulePortNumber property of FCPort." )]
+   uint16 LogicalModulePortNumber;
+
+      [Description ( 
+          "A string representing the complete software version "
+          "information - for example, \'12.1(3)T\'. This string and "
+          "the numeric major/minor/revision/build properties are "
+          "complementary. Since vastly different representations "
+          "and semantics exist for versions, it is not assumed that "
+          "one representation is sufficient to permit a client to "
+          "perform computations (i.e., the values are numeric) and "
+          "a user to recognize the software\'s version (i.e., the "
+          "values are understandable and readable). Hence, both "
+          "numeric and string representations of version are "
+          "provided." )]
+   string VersionString;
+
+      [Description ( 
+          "The name of the Product\'s supplier, or entity selling "
+          "the Product (the manufacturer, reseller, OEM, etc.). "
+          "Corresponds to the Vendor property in the Product object "
+          "in the DMTF Solution Exchange Standard." ), 
+       MaxLen ( 256 )]
+   string Vendor;
+
+      [Key, Description ( "Commonly used Product name." )]
+   string ProductName;
+
+      [Description ( 
+          "The name by which the PhysicalElement is generally known." ), 
+       MaxLen ( 256 )]
+   string Model;
+
+      [Description ( 
+          "A manufacturer-allocated number used to identify the "
+          "Physical Element." ), 
+       MaxLen ( 256 )]
+   string SerialNumber;
+
+      [Description ( 
+          "The Switch part number assigned by the organization that "
+          "is responsible for producing or manufacturing the "
+          "PhysicalElement." ), 
+       MaxLen ( 256 )]
+   string PartNumber;
+
+      [Description ( 
+          "The name of the Product\'s supplier, or entity selling "
+          "the Product (the manufacturer, reseller, OEM, etc.). "
+          "Corresponds to the Vendor property in the Product object "
+          "in the DMTF Solution Exchange Standard." ), 
+       MaxLen ( 256 )]
+   string OEM;
+
+      [Description ( "Commonly used Product name." )]
+   string OEMProductName;
+
+      [Description ( 
+          "Product identification such as a serial number on "
+          "software, a die number on a hardware chip, or (for "
+          "non-commercial Products) a project number." ), 
+       MaxLen ( 64 ), 
+       MappingStrings { "MIF.DMTF|ComponentID|001.4" }]
+   string OEMIdentifyingNumber;
+
+      [Description ( 
+          "Access or addressing information or a combination of "
+          "this information for a remote connection. This "
+          "information can be a host name, network address, or "
+          "similar information." ), 
+       ModelCorrespondence { 
+          "CIM_RemoteServiceAccessPoint.InfoFormat" }]
+   string AccessInfo;
+
+      [Description ( 
+          "Name is a free-form string defining a label for the "
+          "Location. It is a part of the key for the object." ), 
+       MaxLen ( 256 )]
+   string LocationName;
+
+      [Description ( 
+          "Position is a free-form string that indicates the "
+          "placement of a PhysicalElement. It can specify slot "
+          "information on a HostingBoard, mounting site in a "
+          "Cabinet, or latitude and longitude information, for "
+          "example, from a GPS. It is part of the key of the "
+          "Location object." ), 
+       MaxLen ( 256 )]
+   string LocationPhysicalPosition;
+
+      [Experimental, Description ( 
+          "An array property that identifies the context in which "
+          "this FCPort is instantiated as defined in the underlying "
+          "FCPort." )]
+   uint16 PortDiscriminator[];
+
+
+};
